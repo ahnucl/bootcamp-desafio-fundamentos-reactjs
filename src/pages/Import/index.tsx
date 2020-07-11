@@ -13,9 +13,9 @@ import alert from '../../assets/alert.svg';
 import api from '../../services/api';
 
 interface FileProps {
-  file: File;
-  name: string;
-  readableSize: string;
+  file: File; // usado para enviar o arquivo
+  name: string; // usado apenas no FileList
+  readableSize: string; // usado apenas no FileList
 }
 
 const Import: React.FC = () => {
@@ -23,19 +23,26 @@ const Import: React.FC = () => {
   const history = useHistory();
 
   async function handleUpload(): Promise<void> {
-    // const data = new FormData();
+    const data = new FormData();
 
-    // TODO
+    data.append('file', uploadedFiles[0].file);
 
     try {
-      // await api.post('/transactions/import', data);
+      await api.post('/transactions/import', data);
+      history.push('/');
     } catch (err) {
-      // console.log(err.response.error);
+      console.log(err);
     }
   }
 
   function submitFile(files: File[]): void {
-    // TODO
+    const newFiles: FileProps[] = files.map(file => ({
+      file,
+      name: file.name,
+      readableSize: filesize(file.size),
+    }));
+
+    setUploadedFiles(newFiles);
   }
 
   return (
