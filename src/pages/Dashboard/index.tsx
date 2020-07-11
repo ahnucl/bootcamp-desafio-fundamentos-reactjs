@@ -39,6 +39,8 @@ const Dashboard: React.FC = () => {
     }
 
     loadTransactions();
+
+    console.log(formatValue(500));
   }, []);
 
   return (
