@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 interface ContainerProps {
   size?: 'small' | 'large';
+  activeTab?: '/' | '/import';
 }
 
 export const Container = styled.div<ContainerProps>`
@@ -30,6 +31,13 @@ export const Container = styled.div<ContainerProps>`
         &:hover {
           opacity: 0.6;
         }
+
+        &[ href="${({ activeTab }) => activeTab}" ] {
+          padding-bottom: 8px;
+          border-bottom: solid 2px;
+          border-color: #ff872c;
+        }
+
       }
     }
   }
