@@ -18,6 +18,7 @@ export const Container = styled.div<ContainerProps>`
     justify-content: space-between;
 
     nav {
+
       a {
         color: #fff;
         text-decoration: none;
@@ -33,11 +34,26 @@ export const Container = styled.div<ContainerProps>`
         }
 
         &[ href="${({ activeTab }) => activeTab}" ] {
-          padding-bottom: 8px;
-          border-bottom: solid 2px;
-          border-color: #ff872c;
-        }
 
+          display:inline-block;
+
+          @keyframes slideSelectedTab {
+            0% {
+              transform: scaleX(0);
+            }
+            100% {
+              transform: scaleX(1);
+            }
+          }
+
+          &:after {
+          display: block;
+          content:'';
+          padding-bottom: 8px;
+          border-bottom: solid 2px #ff872c;
+          animation: 250ms ease-in 0s 1 slideSelectedTab;
+          }
+        }
       }
     }
   }
