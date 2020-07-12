@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { format } from 'date-fns';
 
 import income from '../../assets/income.svg';
 import outcome from '../../assets/outcome.svg';
@@ -94,25 +95,19 @@ const Dashboard: React.FC = () => {
             </thead>
 
             <tbody>
-              {transactions.map(transaction => {
-                const date = new Date(transaction.created_at);
-
-                return (
-                  <tr key={transaction.id}>
-                    <td className="title">{transaction.title}</td>
-                    <td className={transaction.type}>
-                      {(transaction.type === 'income' ? '' : '- ') +
-                        formatValue(transaction.value)}
-                    </td>
-                    <td>{transaction.category.title}</td>
-                    <td>
-                      {`${`0${date.getDate()}`.slice(-2)}/${`0${
-                        date.getMonth() + 1
-                      }`.slice(-2)}/${date.getFullYear()}`}
-                    </td>
-                  </tr>
-                );
-              })}
+              {transactions.map(transaction => (
+                <tr key={transaction.id}>
+                  <td className="title">{transaction.title}</td>
+                  <td className={transaction.type}>
+                    {(transaction.type === 'income' ? '' : '- ') +
+                      formatValue(transaction.value)}
+                  </td>
+                  <td>{transaction.category.title}</td>
+                  <td>
+                    {format(new Date(transaction.created_at), 'dd/MM/yyyy')}
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </TableContainer>
